@@ -1,0 +1,1 @@
+create  schema  ROUTE_INFORMATION  authorization H2USER;

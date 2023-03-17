@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script type="text/javascript" src="./js/main.js"></script>
+    <script>
+        makeRequest('http://localhost:8080/get-planets', 'GET', function (xhr) {
+            console.log(xhr.responseText);
+        });
+    </script>
+</head>
+
+<body>
+
+    <div id="direction">
+        <p>Upload the file as .xlsx with sheets (sheet names matter): </p>
+        <div>
+            <ul>
+                <li>Planet Names (two columns: 'Planet Node' and 'Planet Name')</li>
+                <li>Routes (four columns: 'Route Id', 'Planet Origin', 'Planet Destination' and 'Distance(Light Years)')
+                </li>
+                <li>Traffic (four columns: 'Route Id', 'Planet Origin', 'Planet Destination', 'Traffic Delay (Light
+                    Years)')</li>
+            </ul>
+        </div>
+
+
+        <div id="upload_file_form">
+            <form action="/data/upload-galaxy-data" method="post" enctype="multipart/form-data">
+                <input type="file" name="file" id="file">
+                <br>
+                <input value="Upload" type="submit">
+            </form>
+        </div>
+
+        <div id="planet_coice">
+            <form action="/">
+                <label for="planet_from">From planet :</label>
+                <select name="planet_from" id="planet_from"></select>
+                <br>
+                <label for="planet_to">To planet :</label>
+                <select name="planet_to" id="planet_to"></select>
+                <br>
+                <p>Calculate With Traffic or Without Traffic</p>
+                <input type="radio" name="include_traffic" value="1">
+                <input type="radio" name="include_traffic" value="0">
+                <br>
+                <!-- <input type="submit" value="Confirm Your Choice"> -->
+            </form>
+        </div>
+
+
+        <div id="calculation_button">
+            <button onclick="/calculate/path/1/27/true">Find Shortest Path</button>
+
+        </div>
+
+        <div id="travel-path">From here to here</div>
+    </div>
+
+<div id="links">
+    <div>
+        <a href="http://localhost:8080/swagger-ui/index.html" target="_blank">Swagger-UI</a>
+    </div>
+    <div>
+        <a href="http://localhost:8080/h2-console/" target="_blank">H2-console (password: h2user)</a>
+    </div>
+
+</div>
+
+
+</body>
+
+</html>
