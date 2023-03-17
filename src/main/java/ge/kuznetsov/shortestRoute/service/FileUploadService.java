@@ -15,16 +15,12 @@ import java.util.List;
 public class FileUploadService {
 
     private final ExcelUploadService excelUploadService;
-    private final PlanetService planetService;
-    private final RouteService routeService;
 
     @Autowired
     public FileUploadService(ExcelUploadService excelUploadService
             , PlanetService planetService
             , RouteService routeService) {
         this.excelUploadService = excelUploadService;
-        this.planetService = planetService;
-        this.routeService = routeService;
     }
 
     public Closeable readFile(MultipartFile file) {

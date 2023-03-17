@@ -13,15 +13,7 @@ public class ShortestRouteApplication {
     public static void main(String[] args) {
         SpringApplication.run(ShortestRouteApplication.class, args);
 
-        try {
-            File resource = new ClassPathResource("resources/data/file.xlsx").getFile();
 
-        } catch (IOException e) {
-            e.getStackTrace();
-        }
-
-
-        System.out.println("Has been ran successfully so far.");
 
     }
 

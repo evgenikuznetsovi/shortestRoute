@@ -1,18 +1,22 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="https://www.thymeleaf.org">
 
 <head>
     <script type="text/javascript" src="./js/main.js"></script>
     <script>
-        makeRequest('http://localhost:8080/get-planets', 'GET', function (xhr) {
+        makeRequest('http://localhost:8080/planets', 'GET', function (xhr) {
             console.log(xhr.responseText);
         });
     </script>
+
+
+
+    <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
 
-    <div id="direction">
+    <div id="direction" class="inner">
         <p>Upload the file as .xlsx with sheets (sheet names matter): </p>
         <div>
             <ul>
@@ -25,15 +29,15 @@
         </div>
 
 
-        <div id="upload_file_form">
-            <form action="/data/upload-galaxy-data" method="post" enctype="multipart/form-data">
+        <div id="upload_file_form" class="inner">
+            <form action="${pageContext.request.contextPath }/data/upload-galaxy-data" method="post" enctype="multipart/form-data">
                 <input type="file" name="file" id="file">
                 <br>
                 <input value="Upload" type="submit">
             </form>
         </div>
 
-        <div id="planet_coice">
+        <div id="planet_choice" class="inner">
             <form action="/">
                 <label for="planet_from">From planet :</label>
                 <select name="planet_from" id="planet_from"></select>
@@ -51,14 +55,14 @@
 
 
         <div id="calculation_button">
-            <button onclick="/calculate/path/1/27/true">Find Shortest Path</button>
+            <button onclick="">Find the Shortest Path</button>
 
         </div>
 
-        <div id="travel-path">From here to here</div>
+        <div id="travel-path" class="inner">Could show the shortest path From HERE to HERE</div>
     </div>
 
-<div id="links">
+<div id="links" class="inner">
     <div>
         <a href="http://localhost:8080/swagger-ui/index.html" target="_blank">Swagger-UI</a>
     </div>

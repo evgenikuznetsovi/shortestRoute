@@ -9,7 +9,10 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestPart;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.Closeable;
@@ -33,7 +36,8 @@ public class FileUploadController {
     }
 
 
-    @RequestMapping(value = "upload-galaxy-data", method = RequestMethod.POST, consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
+    @RequestMapping(value = "upload-galaxy-data", method = RequestMethod.POST
+            , consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
     public ResponseEntity<?> uploadData(@RequestPart MultipartFile document) {
         Closeable content = fileUploadService.readFile(document);
         planetService.savePlanetsToDatabase(
@@ -49,11 +53,13 @@ public class FileUploadController {
                 .forEach(route -> {
                             try {
 
-                                Route tempRoute = routeService.findRouteByEndIds(route.getSourceId(), route.getTargetId())
-                                        .get();
-                                routeService.updateRoutTraffic(tempRoute.getRouteId(), route.getTrafficDelay());
+                                if (routeService.findRouteByEndIds(route.getSourceId(), route.getTargetId()).isPresent()) {
+                                    Route tempRoute = routeService.findRouteByEndIds(route.getSourceId(), route.getTargetId())
+                                            .get();
+                                    routeService.updateRoutTraffic(tempRoute.getRouteId(), route.getTrafficDelay());
+                                }
                             } catch (RouteNotFoundException e) {
-                                e.getStackTrace();
+                                e.printStackTrace();
                             }
                         }
                 );

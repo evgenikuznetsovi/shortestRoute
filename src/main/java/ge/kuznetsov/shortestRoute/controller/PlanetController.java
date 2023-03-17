@@ -1,10 +1,8 @@
 package ge.kuznetsov.shortestRoute.controller;
 
 
-import ge.kuznetsov.shortestRoute.domain.Route;
-import ge.kuznetsov.shortestRoute.exception.PlanetNotFoundException;
 import ge.kuznetsov.shortestRoute.domain.Planet;
-import ge.kuznetsov.shortestRoute.exception.RouteNotFoundException;
+import ge.kuznetsov.shortestRoute.exception.PlanetNotFoundException;
 import ge.kuznetsov.shortestRoute.service.PlanetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -45,7 +43,7 @@ public class PlanetController {
 
     @GetMapping("{id}")
     @ResponseStatus(HttpStatus.OK)
-    public Optional<Planet> findPlanetById(@PathVariable("id") Long id) throws PlanetNotFoundException {
+    public Optional<Planet> findPlanetById(@PathVariable("id") Long id) {
         return planetService.findPlanetById(id);
     }
 
