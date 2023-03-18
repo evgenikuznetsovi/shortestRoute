@@ -40,12 +40,23 @@ public class FileUploadController {
             , consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
     public ResponseEntity<?> uploadData(@RequestPart MultipartFile document) {
         Closeable content = fileUploadService.readFile(document);
-        planetService.savePlanetsToDatabase(
-                fileUploadService.getPlanetsDataFromExcel((XSSFWorkbook) content)
-        );
-        routeService.saveRoutesToDatabase(
-                fileUploadService.getRouteDataFromExcel((XSSFWorkbook) content)
-        );
+
+        try {
+            planetService.savePlanetsToDatabase(
+                    fileUploadService.getPlanetsDataFromExcel((XSSFWorkbook) content)
+            );
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        try {
+            routeService.saveRoutesToDatabase(
+                    fileUploadService.getRouteDataFromExcel((XSSFWorkbook) content)
+            );
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
 
         List<Route> routeTraffics = fileUploadService.getTrafficDataFromExcel((XSSFWorkbook) content);
 

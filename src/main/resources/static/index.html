@@ -4,9 +4,9 @@
 <head>
     <script type="text/javascript" src="./js/main.js"></script>
     <script>
-        makeRequest('http://localhost:8080/planets', 'GET', function (xhr) {
-            console.log(xhr.responseText);
-        });
+
+        getPlanets();
+
     </script>
 
 
@@ -30,36 +30,35 @@
 
 
         <div id="upload_file_form" class="inner">
-            <form action="${pageContext.request.contextPath }/data/upload-galaxy-data" method="post" enctype="multipart/form-data">
-                <input type="file" name="file" id="file">
+            <form action="/data/upload-galaxy-data" method="post" enctype="multipart/form-data">
+                <input type="file" name="document" id="file">
                 <br>
-                <input value="Upload" type="submit">
+                <button onClick="uploadFile()" type="button">Upload</button> <span id="wait">Please wait...</span>
             </form>
         </div>
 
         <div id="planet_choice" class="inner">
-            <form action="/">
+            <form >
                 <label for="planet_from">From planet :</label>
                 <select name="planet_from" id="planet_from"></select>
                 <br>
                 <label for="planet_to">To planet :</label>
                 <select name="planet_to" id="planet_to"></select>
                 <br>
-                <p>Calculate With Traffic or Without Traffic</p>
-                <input type="radio" name="include_traffic" value="1">
-                <input type="radio" name="include_traffic" value="0">
+                <p>Calculate With Traffic</p>
+                <input type="radio"  name="delay" value="true"> Yes
+                <input type="radio" name="delay" value="false" checked> No
                 <br>
+                <button type="button" onclick="getRoutePlanets()">Find the Shortest Path</button>
                 <!-- <input type="submit" value="Confirm Your Choice"> -->
             </form>
         </div>
 
 
-        <div id="calculation_button">
-            <button onclick="">Find the Shortest Path</button>
 
+
+        <div id="travel-path" class="inner" >
         </div>
-
-        <div id="travel-path" class="inner">Could show the shortest path From HERE to HERE</div>
     </div>
 
 <div id="links" class="inner">

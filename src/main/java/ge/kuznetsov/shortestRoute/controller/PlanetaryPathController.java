@@ -17,12 +17,12 @@ public class PlanetaryPathController {
         this.routeToGraphService = routeToGraphService;
     }
 
-    @GetMapping("path/{sourceId}/{targetId}/{delay}")
+    @GetMapping("path")
     @ResponseStatus(HttpStatus.OK)
     public List<Planet> calculateShortestPathFromSourceToDestination(
-            @PathVariable("sourceId") long sourceId
-            ,@PathVariable("targetId") long targetId
-            ,@PathVariable("delay") boolean delay){
+            @RequestParam(required = true, name = "planet_from") long sourceId
+            , @RequestParam(required = true, name = "planet_to") long targetId
+            , @RequestParam(required = true, name = "delay") boolean delay){
         return  routeToGraphService
                 .calculateShortestPathFromSourceToDestination(sourceId, targetId, delay);
     }

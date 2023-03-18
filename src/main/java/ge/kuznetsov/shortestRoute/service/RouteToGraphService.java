@@ -40,30 +40,40 @@ public class RouteToGraphService {
         for (Node node : allNodes
         ) {
             for (Route route : allRouts) {
-                if (route.getSourceId() == node.getNodeId()) {
-                    Node destination = allNodes.stream()
-                            .filter(tempNode -> tempNode.getNodeId() == route.getTargetId())
-                            .findFirst()
-                            .get();
 
-                    node.addDestination(destination, route.getDistance());
+                double distance = Double.MAX_VALUE;
+
+                if (!delay) {
+                    distance = route.getDistance();
+                }
+                if (delay) {
+                    distance = route.getTotalDistanceWithRespectToDelay();
+                }
+
+                if (route.getSourceId() == node.getNodeId()) {
+                    try {
+                        Node destination = allNodes.stream()
+                                .filter(tempNode -> tempNode.getNodeId() == route.getTargetId())
+                                .findFirst()
+                                .get();
+
+                        node.addDestination(destination, distance);
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
 
                 if (route.getTargetId() == node.getNodeId()) {
-                    Node destination = allNodes.stream()
-                            .filter(tempNode -> tempNode.getNodeId() == route.getSourceId())
-                            .findFirst()
-                            .get();
-
-                    double distance = Double.MAX_VALUE;
-
-                    if (!delay) {
-                        distance = route.getDistance();
+                    try {
+                        Node destination = allNodes.stream()
+                                .filter(tempNode -> tempNode.getNodeId() == route.getSourceId())
+                                .findFirst()
+                                .get();
+                        node.addDestination(destination, distance);
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
-                    if (delay) {
-                        distance = route.getTotalDistanceWithRespectToDelay();
-                    }
-                    node.addDestination(destination, distance);
                 }
             }
         }
